@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정시 알람 시계</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div id="clock" class="clock">
+            <div class="time-display">
+                <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+            </div>
+            <div class="date-display" id="date"></div>
+        </div>
+        
+        <div class="controls">
+            <button id="alarmBtn" class="btn">알람 설정</button>
+            <button id="fileBtn" class="btn">알람 파일 선택</button>
+        </div>
+        
+        <div id="alarmStatus" class="alarm-status"></div>
+        
+        <audio id="alarmAudio" preload="auto"></audio>
+        <audio id="hourlyAudio" preload="auto"></audio>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
