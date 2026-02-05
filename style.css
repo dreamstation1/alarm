@@ -45,6 +45,318 @@ body {
     }
 }
 
+/* 원형 아날로그 시계 */
+.analog-clock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+    position: relative;
+    padding: 20px;
+}
+
+.analog-clock::before {
+    content: '';
+    position: absolute;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background: conic-gradient(
+        rgba(255, 0, 0, 0.3) 0deg,
+        rgba(255, 165, 0, 0.3) 30deg,
+        rgba(255, 255, 0, 0.3) 60deg,
+        rgba(0, 255, 0, 0.3) 90deg,
+        rgba(0, 165, 255, 0.3) 120deg,
+        rgba(0, 0, 255, 0.3) 150deg,
+        rgba(128, 0, 128, 0.3) 180deg,
+        rgba(255, 0, 255, 0.3) 210deg,
+        rgba(255, 0, 0, 0.3) 240deg,
+        rgba(255, 165, 0, 0.3) 270deg,
+        rgba(255, 255, 0, 0.3) 300deg,
+        rgba(0, 255, 0, 0.3) 330deg,
+        rgba(255, 0, 0, 0.3) 360deg
+    );
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    filter: blur(12px);
+}
+
+.analog-clock:has(.clock-face.rainbow-blink)::before {
+    opacity: 1;
+    animation: rainbowRingRotate 2s linear infinite;
+}
+
+@keyframes rainbowRingRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.clock-face {
+    width: 320px;
+    height: 320px;
+    border: 12px solid rgba(255, 255, 255, 0.95);
+    border-radius: 50%;
+    position: relative;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05)),
+        radial-gradient(circle at center, transparent 40%, rgba(255, 255, 255, 0.1) 100%);
+    box-shadow: 
+        0 0 50px rgba(0, 0, 0, 0.5),
+        inset 0 0 40px rgba(255, 255, 255, 0.2),
+        0 0 80px rgba(102, 126, 234, 0.4),
+        inset 0 0 20px rgba(102, 126, 234, 0.2);
+    transition: all 0.3s ease;
+}
+
+.clock-face.rainbow-blink {
+    border-color: rgba(255, 255, 255, 1);
+    box-shadow: 
+        0 0 60px rgba(0, 0, 0, 0.6),
+        inset 0 0 50px rgba(255, 255, 255, 0.3),
+        0 0 100px rgba(255, 0, 0, 0.5),
+        0 0 120px rgba(255, 165, 0, 0.4),
+        0 0 140px rgba(255, 255, 0, 0.3),
+        0 0 160px rgba(0, 255, 0, 0.3),
+        0 0 180px rgba(0, 165, 255, 0.3),
+        0 0 200px rgba(0, 0, 255, 0.3),
+        inset 0 0 30px rgba(128, 0, 128, 0.3);
+    animation: rainbowBorderPulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes rainbowBorderPulse {
+    0% {
+        filter: brightness(1) saturate(1);
+    }
+    100% {
+        filter: brightness(1.3) saturate(1.5);
+    }
+}
+
+.clock-face::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: 50%;
+    background: conic-gradient(
+        rgba(255, 0, 0, 0.4) 0deg,
+        rgba(255, 165, 0, 0.4) 30deg,
+        rgba(255, 255, 0, 0.4) 60deg,
+        rgba(0, 255, 0, 0.4) 90deg,
+        rgba(0, 165, 255, 0.4) 120deg,
+        rgba(0, 0, 255, 0.4) 150deg,
+        rgba(128, 0, 128, 0.4) 180deg,
+        rgba(255, 0, 255, 0.4) 210deg,
+        rgba(255, 0, 0, 0.4) 240deg,
+        rgba(255, 165, 0, 0.4) 270deg,
+        rgba(255, 255, 0, 0.4) 300deg,
+        rgba(0, 255, 0, 0.4) 330deg,
+        rgba(255, 0, 0, 0.4) 360deg
+    );
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+    filter: blur(8px);
+}
+
+.clock-face.rainbow-blink::before {
+    opacity: 1;
+    animation: rainbowRotate 1s linear infinite;
+}
+
+@keyframes rainbowRotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.hour-mark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 35px;
+    height: 35px;
+    margin-left: -17.5px;
+    margin-top: -17.5px;
+    text-align: center;
+    line-height: 35px;
+    font-weight: bold;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.5),
+        2px 2px 4px rgba(0, 0, 0, 0.6);
+    transition: all 0.3s ease;
+}
+
+.clock-face.rainbow-blink .hour-mark {
+    animation: rainbowGlow 0.3s ease-in-out infinite alternate;
+    text-shadow: 
+        0 0 15px currentColor,
+        0 0 25px currentColor,
+        2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes rainbowGlow {
+    0% {
+        color: rgba(255, 0, 0, 1);
+        filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8));
+    }
+    16.66% {
+        color: rgba(255, 165, 0, 1);
+        filter: drop-shadow(0 0 5px rgba(255, 165, 0, 0.8));
+    }
+    33.33% {
+        color: rgba(255, 255, 0, 1);
+        filter: drop-shadow(0 0 5px rgba(255, 255, 0, 0.8));
+    }
+    50% {
+        color: rgba(0, 255, 0, 1);
+        filter: drop-shadow(0 0 5px rgba(0, 255, 0, 0.8));
+    }
+    66.66% {
+        color: rgba(0, 165, 255, 1);
+        filter: drop-shadow(0 0 5px rgba(0, 165, 255, 0.8));
+    }
+    83.33% {
+        color: rgba(0, 0, 255, 1);
+        filter: drop-shadow(0 0 5px rgba(0, 0, 255, 0.8));
+    }
+    100% {
+        color: rgba(128, 0, 128, 1);
+        filter: drop-shadow(0 0 5px rgba(128, 0, 128, 0.8));
+    }
+}
+
+.hand {
+    position: absolute;
+    background: white;
+    transform-origin: bottom center;
+    border-radius: 5px 5px 0 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.4), 0 0 15px rgba(255, 255, 255, 0.3);
+    transition: transform 0.1s cubic-bezier(0.4, 2.5, 0.5, 1);
+}
+
+.clock-face.rainbow-blink .hand {
+    animation: rainbowHandGlow 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes rainbowHandGlow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6);
+    }
+    16.66% {
+        box-shadow: 0 0 10px rgba(255, 165, 0, 0.8), 0 0 20px rgba(255, 165, 0, 0.6);
+    }
+    33.33% {
+        box-shadow: 0 0 10px rgba(255, 255, 0, 0.8), 0 0 20px rgba(255, 255, 0, 0.6);
+    }
+    50% {
+        box-shadow: 0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.6);
+    }
+    66.66% {
+        box-shadow: 0 0 10px rgba(0, 165, 255, 0.8), 0 0 20px rgba(0, 165, 255, 0.6);
+    }
+    83.33% {
+        box-shadow: 0 0 10px rgba(0, 0, 255, 0.8), 0 0 20px rgba(0, 0, 255, 0.6);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(128, 0, 128, 0.8), 0 0 20px rgba(128, 0, 128, 0.6);
+    }
+}
+
+.hour-hand {
+    width: 10px;
+    height: 85px;
+    top: 50%;
+    left: 50%;
+    margin-left: -5px;
+    margin-top: -85px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8));
+    z-index: 3;
+    border-radius: 5px 5px 0 0;
+}
+
+.minute-hand {
+    width: 7px;
+    height: 115px;
+    top: 50%;
+    left: 50%;
+    margin-left: -3.5px;
+    margin-top: -115px;
+    background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8));
+    z-index: 2;
+    border-radius: 3.5px 3.5px 0 0;
+}
+
+.second-hand {
+    width: 3px;
+    height: 125px;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5px;
+    margin-top: -125px;
+    background: linear-gradient(to top, rgba(255, 80, 80, 1), rgba(255, 120, 120, 0.9));
+    z-index: 4;
+    border-radius: 1.5px 1.5px 0 0;
+}
+
+.center-dot {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 18px;
+    margin-left: -9px;
+    margin-top: -9px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0.8));
+    border-radius: 50%;
+    box-shadow: 
+        0 0 15px rgba(255, 255, 255, 0.8),
+        0 0 25px rgba(0, 0, 0, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.5);
+    z-index: 5;
+    transition: all 0.3s ease;
+}
+
+.clock-face.rainbow-blink .center-dot {
+    animation: rainbowCenterGlow 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes rainbowCenterGlow {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 0.8);
+    }
+    16.66% {
+        box-shadow: 0 0 20px rgba(255, 165, 0, 1), 0 0 30px rgba(255, 165, 0, 0.8);
+    }
+    33.33% {
+        box-shadow: 0 0 20px rgba(255, 255, 0, 1), 0 0 30px rgba(255, 255, 0, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(0, 255, 0, 1), 0 0 30px rgba(0, 255, 0, 0.8);
+    }
+    66.66% {
+        box-shadow: 0 0 20px rgba(0, 165, 255, 1), 0 0 30px rgba(0, 165, 255, 0.8);
+    }
+    83.33% {
+        box-shadow: 0 0 20px rgba(0, 0, 255, 1), 0 0 30px rgba(0, 0, 255, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(128, 0, 128, 1), 0 0 30px rgba(128, 0, 128, 0.8);
+    }
+}
+
 .time-display {
     font-size: 4rem;
     font-weight: bold;
@@ -89,6 +401,39 @@ body {
     transform: translateY(0);
 }
 
+.night-alarm-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    font-size: 0.95rem;
+    user-select: none;
+}
+
+.night-alarm-toggle:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.night-alarm-toggle input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: rgba(255, 255, 255, 0.8);
+}
+
+.night-alarm-toggle span {
+    cursor: pointer;
+}
+
 .alarm-status {
     min-height: 2rem;
     font-size: 0.9rem;
@@ -102,6 +447,15 @@ body.night-mode {
 
 body.night-mode .container {
     background: rgba(0, 0, 0, 0.3);
+}
+
+body.night-mode .clock-face {
+    border-color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.night-mode .hour-mark {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 /* 알람 설정 모달 */
