@@ -9,6 +9,29 @@
 <body>
     <div class="container">
         <div id="clock" class="clock">
+            <div class="analog-clock">
+                <div class="clock-face">
+                    <!-- 시계 눈금 -->
+                    <div class="hour-mark" style="transform: rotate(0deg) translateY(-140px);">12</div>
+                    <div class="hour-mark" style="transform: rotate(30deg) translateY(-140px);">1</div>
+                    <div class="hour-mark" style="transform: rotate(60deg) translateY(-140px);">2</div>
+                    <div class="hour-mark" style="transform: rotate(90deg) translateY(-140px);">3</div>
+                    <div class="hour-mark" style="transform: rotate(120deg) translateY(-140px);">4</div>
+                    <div class="hour-mark" style="transform: rotate(150deg) translateY(-140px);">5</div>
+                    <div class="hour-mark" style="transform: rotate(180deg) translateY(-140px);">6</div>
+                    <div class="hour-mark" style="transform: rotate(210deg) translateY(-140px);">7</div>
+                    <div class="hour-mark" style="transform: rotate(240deg) translateY(-140px);">8</div>
+                    <div class="hour-mark" style="transform: rotate(270deg) translateY(-140px);">9</div>
+                    <div class="hour-mark" style="transform: rotate(300deg) translateY(-140px);">10</div>
+                    <div class="hour-mark" style="transform: rotate(330deg) translateY(-140px);">11</div>
+                    
+                    <!-- 시침, 분침, 초침 -->
+                    <div class="hand hour-hand" id="hourHand"></div>
+                    <div class="hand minute-hand" id="minuteHand"></div>
+                    <div class="hand second-hand" id="secondHand"></div>
+                    <div class="center-dot"></div>
+                </div>
+            </div>
             <div class="time-display">
                 <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
             </div>
@@ -18,6 +41,10 @@
         <div class="controls">
             <button id="alarmBtn" class="btn">알람 설정</button>
             <button id="fileBtn" class="btn">알람 파일 선택</button>
+            <label class="night-alarm-toggle">
+                <input type="checkbox" id="nightAlarmToggle">
+                <span>야간 정시 알람 (2시~7시)</span>
+            </label>
         </div>
         
         <div id="alarmStatus" class="alarm-status"></div>
